@@ -682,8 +682,20 @@ class VideoPermission(metaclass=YAMLGetter):
     default_permission_duration: int
 
 
+class ThreadArchiveTimes(Enum):
+    HOUR = 60
+    DAY = 1440
+    THREE_DAY = 4230
+    WEEK = 10080
+
+
 # Debug mode
 DEBUG_MODE: bool = _CONFIG_YAML["debug"] == "true"
+
+if DEBUG_MODE:
+    DEFAULT_THREAD_ARCHIVE_TIME = ThreadArchiveTimes.HOUR.value
+else:
+    DEFAULT_THREAD_ARCHIVE_TIME = ThreadArchiveTimes.WEEK.value
 
 # Paths
 BOT_DIR = os.path.dirname(__file__)
